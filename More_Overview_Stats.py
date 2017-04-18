@@ -1,4 +1,4 @@
-# Author: Calumks <calumks@gmail.com>
+# Author: C9HDN
 
 # Get Overview class
 from aqt.overview import Overview
