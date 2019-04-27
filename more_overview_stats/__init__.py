@@ -28,9 +28,10 @@ def table(self):
     counts.append(count_cards(shed, 'suspended'))
 
     # If count is more than 1000, just show 1000+
-    for count in enumerate(counts):
-        if len(count) == 1000:
-            count = "1000+"
+    # todo: replace 1000 with sched.reportLimit?
+    for i, count in enumerate(counts):
+        if count >= 1000:
+	        counts[i] = "1000+"
 
     return '''
     <table width=300 cellpadding=5>
