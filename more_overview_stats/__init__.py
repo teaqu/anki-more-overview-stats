@@ -25,7 +25,9 @@ def table(self):
     
     dueTomorrow = [
         min(dconf.get('new').get('perDay'), _count_cards(deck, sched, 'new')), 
-        sched.dueForecast(2)[1]
+        sched.col.db.scalar("""
+            select count() from cards where did in %s and queue in (2,3)
+            and due = ?""" % sched._deckLimit(), sched.today+1)
     ]
     buried = _count_cards(deck, sched, 'buried')
     suspended = _count_cards(deck, sched, 'suspended')
