@@ -17,7 +17,7 @@ def table(self):
     # 0 = new, 1 = learn, 2 = review
     counts = _limit(list(sched.counts()))
     finished = not sum(counts)
-
+    
     dueTomorrow = [
         min(dconf.get('new').get('perDay'), _count_cards(deck, sched, 'new')), 
         sched.col.db.scalar("""
@@ -25,6 +25,13 @@ def table(self):
             and due = ?""" % sched._deckLimit(), sched.today+1)
     ]
     
+    totals = _limit([
+        _count_cards(deck, sched, 'new'),
+        _count_cards(deck, sched, 'lern'),
+        _count_cards(deck, sched, 'review'),
+        _count_cards(deck, sched, 'buried'),
+        _count_cards(deck, sched, 'suspended')
+    ])
 
     # No need to show stats if we have finished collection today
     if finished:
@@ -34,19 +41,20 @@ def table(self):
         <div style="white-space: pre-wrap;">%s</div>
         <table cellspacing=5>
             <tr><td>%s:</td><td align=right>
-            <font title="new" color=#00a>%s</font>
-            <font title="review" color=#0a0>%s</font>
+                <font title="new" color=#00a>%s</font>
+                <font title="review" color=#0a0>%s</font>
+            </td></tr>
+            <tr><td>%s:</td><td align=right>
+                <font title="new" color=#00a>%s</font>
+                <font title="lern" color=#C35617>%s</font>
+                <font title="review" color=#0a0>%s</font>
+                <font title="buried" color=#ffa500>%s</font>
+                <font title="suspended" color=#adb300>%s</font>
             </td></tr>
         </table>
-        ''' % (mssg, _("Due tomorrow"), dueTomorrow[0], dueTomorrow[1])
-    
-    totals = _limit([
-        _count_cards(deck, sched, 'new'),
-        _count_cards(deck, sched, 'lern'),
-        _count_cards(deck, sched, 'review'),
-        _count_cards(deck, sched, 'buried'),
-        _count_cards(deck, sched, 'suspended')
-    ])
+        ''' % (
+            mssg, _("Due tomorrow"), dueTomorrow[0], dueTomorrow[1],
+            _("Total"), totals[0], totals[1], totals[2], totals[3], totals[4])
 
     # pylint: disable=undefined-variable
     return '''
