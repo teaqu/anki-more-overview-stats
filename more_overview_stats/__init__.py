@@ -48,12 +48,10 @@ def table(self):
         dueTomorrow = _limit([
             # new
             min(dconf.get('new').get('perDay'), totals[0]),
-            # lern
-           counts[1],
             # review
             sched.col.db.scalar("""
-                select count() from cards where did in %s and queue in (2)
-                and due <= ?""" % sched._deckLimit(), sched.today + 1)
+                select count() from cards where did = %s and queue in (2)
+                and due = ?""" % deck.get('id'), sched.today + 1)
         ])
 
     html = ''
@@ -79,10 +77,9 @@ def table(self):
         html += '''
             <tr><td>%s:</td><td align=right>
                 <font title="new" color=#00a>%s</font>
-                <font title="lern" color=#C35617>%s</font>
                 <font title="review" color=#0a0>%s</font>
             </td></tr>''' % (_("Due tomorrow"), dueTomorrow[0], 
-            dueTomorrow[1], dueTomorrow[2])
+            dueTomorrow[1])
     html += '''
         <tr><td>%s:</td><td align=right>
             <font title="new" color=#00a>%s</font>
