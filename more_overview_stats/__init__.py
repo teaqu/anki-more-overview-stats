@@ -51,7 +51,7 @@ def table(self):
             # review
             sched.col.db.scalar("""
                 select count() from cards where did = %s and queue in (2)
-                and due = 1""" % deck.get('id'))
+                and due = ?""" % deck.get('id'), sched.today + 1)
         ])
 
     html = ''
