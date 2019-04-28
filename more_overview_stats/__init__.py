@@ -50,7 +50,7 @@ def table(self):
             min(dconf.get('new').get('perDay'), totals[0]),
             # review
             sched.col.db.scalar("""
-                select count() from cards where did = %s and queue in (2)
+                select count() from cards where did = %s and queue in (2,3)
                 and due = ?""" % deck.get('id'), sched.today + 1)
         ])
 
