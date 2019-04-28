@@ -24,7 +24,7 @@ def table(self):
     totals = [
         #new 
         sched.col.db.scalar("""
-            select count() from (select 1 from cards where did = %s 
+            select count() from (select id from cards where did = %s 
             and queue = 0)""" % deck.get('id')),
         # lern
         sched.col.db.scalar("""
