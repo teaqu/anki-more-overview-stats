@@ -15,15 +15,16 @@ def table(self):
 
     # Get default counts
     # 0 = new, 1 = learn, 2 = review
-    counts = _limit(list(sched.counts()))
+    counts = list(sched.counts())
     finished = not sum(counts)
+    counts = _limit(counts)
     
-    dueTomorrow = [
+    dueTomorrow = _limit([
         min(dconf.get('new').get('perDay'), _count_cards(deck, sched, 'new')), 
         sched.col.db.scalar("""
             select count() from cards where did in %s and queue in (2,3)
             and due = ?""" % sched._deckLimit(), sched.today+1)
-    ]
+    ])
     
     totals = _limit([
         _count_cards(deck, sched, 'new'),
