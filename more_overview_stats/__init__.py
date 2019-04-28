@@ -1,5 +1,5 @@
 """
-Author: C9HDN <https://github.com/C9HDN>
+Author: calumks <https://github.com/calumks>
 https://ankiweb.net/shared/info/2116130837
 """
 
