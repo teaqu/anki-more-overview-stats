@@ -99,7 +99,7 @@ def table(self):
 
     if not finished:
         html += '''</td>
-            <td align=left nowrap="nowrap">%s</td>
+            <td align=center nowrap="nowrap">%s</td>
         </tr></table>''' % (but("study", _("Study Now"), id="study"))
     
     return html
