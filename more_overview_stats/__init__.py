@@ -27,7 +27,7 @@ def table(self):
         sched.col.db.scalar("""
             select count() from (select id from cards where did = %s 
             and queue = 0)""" % deck.get('id')),
-        # lern
+        # learn
         sched.col.db.scalar("""
             select count() from (select id from cards where did = %s 
             and queue in (1,3))""" % deck.get('id')),
@@ -70,7 +70,7 @@ def table(self):
             <table cellspacing=5>
             <tr><td>%s:</td><td align=right>
                 <font title="new" color=#00a>%s</font>
-                <font title="lern" color=#C35617>%s</font>
+                <font title="learn" color=#C35617>%s</font>
                 <font title="review" color=#0a0>%s</font>
             </td></tr>''' % (_("Due today"), counts[0], counts[1], counts[2]) 
         
@@ -85,7 +85,7 @@ def table(self):
     html += '''
         <tr><td>%s:</td><td align=right>
             <font title="new" color=#00a>%s</font>
-            <font title="lern" color=#C35617>%s</font>
+            <font title="learn" color=#C35617>%s</font>
             <font title="review" color=#0a0>%s</font>
             <font title="buried" color=#ffa500>%s</font>
             <font title="suspended" color=#adb300>%s</font>
