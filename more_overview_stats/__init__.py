@@ -14,6 +14,7 @@ def table(self):
     sched = self.mw.col.sched
     deck = self.mw.col.decks.current()
     dconf = self.mw.col.decks.confForDid(deck.get('id'))
+    but = self.mw.button
 
     # Get default counts
     # 0 = new, 1 = learn, 2 = review
@@ -64,7 +65,7 @@ def table(self):
             <table cellspacing=5>''' % mssg
     else:
         html +='''
-            <table width=300 cellpadding=5>
+            <table width=400 cellpadding=5>
             <tr><td align=center valign=top>
             <table cellspacing=5>
             <tr><td>%s:</td><td align=right>
@@ -80,6 +81,7 @@ def table(self):
                 <font title="review" color=#0a0>%s</font>
             </td></tr>''' % (_("Due tomorrow"), dueTomorrow[0], 
             dueTomorrow[1])
+    
     html += '''
         <tr><td>%s:</td><td align=right>
             <font title="new" color=#00a>%s</font>
@@ -93,7 +95,7 @@ def table(self):
 
     if not finished:
         html += '</td><td align=center>%s</td></tr></table>' % (
-            self.mw.button("study", _("Study Now"), id="study"))
+           but("study", _("Study Now"), id="study", extra=" autofocus"))
     
     return html
 
