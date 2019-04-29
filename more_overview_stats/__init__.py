@@ -67,9 +67,9 @@ def table(self):
     else:
         html +='''
             <table cellpadding=5>
-            <tr><td align=center valign=top">
+            <tr><td align=center valign=top nowrap="nowrap">
             <table cellspacing=5>
-            <tr><td>%s:</td><td align=right>
+            <tr><td nowrap="nowrap">%s:</td><td align=right>
                 <font title="new" color=#00a>%s</font>
                 <font title="learn" color=#C35617>%s</font>
                 <font title="review" color=#0a0>%s</font>
@@ -77,7 +77,7 @@ def table(self):
         
     if (dconf.get('new')):
         html += '''
-            <tr><td>%s:</td><td align=right>
+            <tr><td nowrap="nowrap">%s:</td><td align=right>
                 <font title="new" color=#00a>%s</font>
                 <font title="review" color=#0a0>%s</font>
             </td></tr>''' % (_("Due tomorrow"), dueTomorrow[0], 
@@ -85,8 +85,8 @@ def table(self):
     
     html += '''
         <tr>
-            <td>%s:</td>
-            <td>
+            <td nowrap="nowrap">%s:</td>
+            <td align=right nowrap="nowrap">
                 <font title="new" color=#00a>%s</font>
                 <font title="learn" color=#C35617>%s</font>
                 <font title="review" color=#0a0>%s</font>
