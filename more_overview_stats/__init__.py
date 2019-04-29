@@ -8,6 +8,7 @@ https://ankiweb.net/shared/info/2116130837
 # queue types: 0=new/cram, 1=lrn, 2=rev, 3=day lrn, -1=suspended, -2=buried
 from anki.utils import ids2str
 from aqt.overview import Overview
+from aqt.qt import *
 
 def table(self):
     """Returns html table with more statistics than before."""
@@ -65,10 +66,10 @@ def table(self):
             <table cellspacing=5>''' % mssg
     else:
         html +='''
-            <table width=400 cellpadding=5>
-            <tr><td align=center valign=top>
+            <table cellpadding=5 nowrap="nowrap">
+            <tr><td align=center valign=top nowrap="nowrap">
             <table cellspacing=5>
-            <tr><td>%s:</td><td align=right>
+            <tr><td nowrap="nowrap">%s:</td><td align=right>
                 <font title="new" color=#00a>%s</font>
                 <font title="learn" color=#C35617>%s</font>
                 <font title="review" color=#0a0>%s</font>
@@ -76,26 +77,30 @@ def table(self):
         
     if (dconf.get('new')):
         html += '''
-            <tr><td>%s:</td><td align=right>
+            <tr><td nowrap="nowrap">%s:</td><td align=right>
                 <font title="new" color=#00a>%s</font>
                 <font title="review" color=#0a0>%s</font>
             </td></tr>''' % (_("Due tomorrow"), dueTomorrow[0], 
             dueTomorrow[1])
     
     html += '''
-        <tr><td>%s:</td><td align=right>
-            <font title="new" color=#00a>%s</font>
-            <font title="learn" color=#C35617>%s</font>
-            <font title="review" color=#0a0>%s</font>
-            <font title="buried" color=#ffa500>%s</font>
-            <font title="suspended" color=#adb300>%s</font>
-        </td></tr>
+        <tr>
+            <td nowrap="nowrap">%s:</td>
+            <td align=right nowrap="nowrap">
+                <font title="new" color=#00a>%s</font>
+                <font title="learn" color=#C35617>%s</font>
+                <font title="review" color=#0a0>%s</font>
+                <font title="buried" color=#ffa500>%s</font>
+                <font title="suspended" color=#adb300>%s</font>
+            </td>
+        </tr>
     </table>''' % (_("Total Cards"), totals[0], totals[1], totals[2], totals[3], 
     totals[4])
 
     if not finished:
-        html += '</td><td align=left>%s</td></tr></table>' % (
-           but("study", _("Study Now"), id="study"))
+        html += '''</td>
+            <td align=left nowrap="nowrap">%s</td>
+        </tr></table>''' % (but("study", _("Study Now"), id="study"))
     
     return html
 
