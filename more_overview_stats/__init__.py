@@ -94,7 +94,7 @@ def table(self):
     totals[4])
 
     if not finished:
-        html += '</td><td align=center>%s</td></tr></table>' % (
+        html += '</td><td align=left>%s</td></tr></table>' % (
            but("study", _("Study Now"), id="study"))
     
     return html
