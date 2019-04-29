@@ -14,7 +14,6 @@ def table(self):
     sched = self.mw.col.sched
     deck = self.mw.col.decks.current()
     dconf = self.mw.col.decks.confForDid(deck.get('id'))
-    but = self.mw.button
 
     # Get default counts
     # 0 = new, 1 = learn, 2 = review
@@ -94,9 +93,12 @@ def table(self):
     totals[4])
 
     if not finished:
-        html += '</td><td align=center>%s</td></tr></table>' % (
-           but("study", _("Study Now"), id="study", extra=" autofocus"))
-    
+        html += '''</td><td align=center>
+            <button id="study" 
+                    onclick="pycmd('study');return false;" 
+                    autofocus>%s</button>
+            </td></tr></table>''' % (_("Study Now"))
+
     return html
 
 # If count is more than 1000, just show 1000+
