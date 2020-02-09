@@ -94,7 +94,7 @@ def table(self):
                 <font title="suspended" color=#adb300>%s</font>
             </td>
         </tr>
-    </table>''' % (_("Total Cards"), totals[0], totals[1], totals[2], totals[3], 
+    </table>''' % (_("Total Cards"), totals[0], totals[1], totals[3], totals[2], 
     totals[4])
 
     if not finished:
