@@ -70,16 +70,16 @@ def table(self):
             <tr><td align=center valign=top nowrap="nowrap">
             <table cellspacing=5>
             <tr><td nowrap="nowrap">%s:</td><td align=right>
-                <font title="new" color=#00a>%s</font>
-                <font title="learn" color=#C35617>%s</font>
-                <font title="review" color=#0a0>%s</font>
+                <span title="new" class="new-count">%s</span>
+                <span title="learn" class="learn-count">%s</span>
+                <span title="review" class="review-count">%s</span>
             </td></tr>''' % (_("Due today"), counts[0], counts[1], counts[2]) 
         
     if (dconf.get('new')):
         html += '''
             <tr><td nowrap="nowrap">%s:</td><td align=right>
-                <font title="new" color=#00a>%s</font>
-                <font title="review" color=#0a0>%s</font>
+                <span title="new" class="new-count">%s</span>
+                <span title="learn" class="learn-count">%s</span>
             </td></tr>''' % (_("Due tomorrow"), dueTomorrow[0], 
             dueTomorrow[1])
     
@@ -87,11 +87,11 @@ def table(self):
         <tr>
             <td nowrap="nowrap">%s:</td>
             <td align=right nowrap="nowrap">
-                <font title="new" color=#00a>%s</font>
-                <font title="learn" color=#C35617>%s</font>
-                <font title="review" color=#0a0>%s</font>
-                <font title="buried" color=#ffa500>%s</font>
-                <font title="suspended" color=#adb300>%s</font>
+                <span title="new" class="new-count">%s</span>
+                <span title="learn" class="learn-count">%s</span>
+                <span title="review" class="review-count">%s</span>
+                <span title="buried" style="color:#ffa500">%s</span>
+                <span title="suspended" style="color:#adb300">%s</span>
             </td>
         </tr>
     </table>''' % (_("Total Cards"), totals[0], totals[1], totals[2], totals[4], 
