@@ -9,6 +9,7 @@ https://ankiweb.net/shared/info/2116130837
 from anki.utils import ids2str
 from aqt.overview import Overview
 from aqt.qt import *
+from anki.buildinfo import version
 
 def table(self):
     """Returns html table with more statistics than before."""
@@ -57,6 +58,15 @@ def table(self):
         ])
 
     html = ''
+
+    # Style if less than 2.1.20
+    if (int(version.replace('.', '')) < 2120):
+        html += '''
+            <style>
+                .new-count {color: #00a}
+                .learn-count {color: #C35617}
+                .review-count {color: #0a0}
+            </style>'''
 
     # No need to show due if we have finished collection today
     if finished:
