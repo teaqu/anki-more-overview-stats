@@ -9,7 +9,7 @@ https://ankiweb.net/shared/info/2116130837
 from anki.utils import ids2str
 from aqt.overview import Overview
 from aqt.qt import *
-from anki.buildinfo import version
+from anki import version
 
 def table(self):
     """Returns html table with more statistics than before."""
