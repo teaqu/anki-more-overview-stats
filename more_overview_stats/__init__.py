@@ -10,6 +10,7 @@ from anki.utils import ids2str
 from aqt.overview import Overview
 from aqt.qt import *
 from anki import version
+from anki.lang import _
 
 def table(self):
     """Returns html table with more statistics than before."""
