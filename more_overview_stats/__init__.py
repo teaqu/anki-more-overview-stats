@@ -39,7 +39,7 @@ def table(self):
         # buried
         sched.col.db.scalar("""
             select count() from (select id from cards where did in %s 
-            and queue = -2)""" % ids),
+            and queue in (-2,-3))""" % ids),
     ]
 
     # Due today
