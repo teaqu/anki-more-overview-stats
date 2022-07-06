@@ -98,7 +98,7 @@ def table(self):
     if not finished:
         html += '''</td>
             <td align=center nowrap="nowrap">%s</td>
-        </tr></table>''' % (but("study", _("Study Now"), id="study"))
+        </tr></table>''' % (but("study", _("Study Now"), id="study", extra=" autofocus"))
 
     return html
 
