@@ -62,7 +62,7 @@ def table(self):
 
     # Start table, due today
     html = '''
-        <table cellpadding=5>
+        <table cellpadding=5 id=overview>
         <tr><td align=center valign=top nowrap="nowrap">
         <table cellspacing=5>
         <tr><td nowrap="nowrap">%s:</td><td align=right>
@@ -102,31 +102,20 @@ def table(self):
 
     return html
 
-
 # inject overview into congrats webview
-def congrats_overview(web: AnkiWebView):
-    page = os.path.basename(web.page().url().path())
-    if page != "congrats.html":
-        return
-
-    # Add class colours
-    styles = """
-        <style>
-            #overview {margin: 0 auto;display: table}
-            .new-count {color: #00a}
-            .learn-count {color: #C35617}
-            .review-count {color: #0a0}
-        </style>
-    """
-
-    web.eval("""
-        div = document.createElement("div");
-        div.id = "overview"
-        div.innerHTML = `{}`;
-        document.body.appendChild(div);
-    """.format(styles + table(Overview)))
-
+def webview_will_set_content(web_content, context):
+    if type(context).__name__ == "OverviewBottomBar" and context.overview.mw.col.sched._is_finished():
+        styles = """
+            <style>
+                #overview {margin: 0 auto;display: table}
+                .new-count {color: #00a}
+                .learn-count {color: #C35617}
+                .review-count {color: #0a0}
+                table {}
+            </style>
+        """
+        web_content.body = styles + table(Overview) + web_content.body
 
 # Add addon to Anki
 Overview._table = table
-gui_hooks.webview_did_inject_style_into_page.append(congrats_overview)
+gui_hooks.webview_will_set_content.append(webview_will_set_content)
