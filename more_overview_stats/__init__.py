@@ -14,7 +14,7 @@ def table(self):
     # queue types: 0=new/cram, 1=lrn, 2=rev, 3=day lrn, -1=suspended, -2=buried
     sched = mw.col.sched
     deck = mw.col.decks.current()
-    dconf = mw.col.decks.confForDid(deck.get('id'))
+    dconf = mw.col.decks.config_dict_for_deck_id(deck.get('id'))
     but = mw.button
     ids = ids2str(mw.col.decks.deck_and_child_ids(deck.get('id')))
 
@@ -49,7 +49,7 @@ def table(self):
     # Due tomorrow
     # (not necessary in some instances such as a custom study session)
     if dconf.get('new'):
-        c = sched.col.decks.confForDid(deck.get('id'))
+        c = sched.col.decks.config_dict_for_deck_id(deck.get('id'))
 
         due_tomorrow = [
             # new
