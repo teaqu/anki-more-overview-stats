@@ -2,8 +2,9 @@ import os
 
 from aqt.overview import Overview
 from aqt.webview import AnkiWebView
+from aqt.utils import showInfo
 from aqt.qt import *
-from aqt import gui_hooks, mw
+from aqt import gui_hooks, mw, theme
 from anki.lang import _
 from anki.utils import ids2str
 
@@ -104,16 +105,26 @@ def table(self):
 
 # inject overview into congrats webview
 def webview_will_set_content(web_content, context):
-    if type(context).__name__ == "OverviewBottomBar" and context.overview.mw.col.sched._is_finished():
+    styles = """
+        <style>
+            #overview {margin: 0 auto;display: table}
+            .new-count {color: #00a}
+            .learn-count {color: #C35617}
+            .review-count {color: #0a0}
+            table {}
+        </style>
+    """
+    if theme.theme_manager.night_mode:
         styles = """
-            <style>
-                #overview {margin: 0 auto;display: table}
-                .new-count {color: #00a}
-                .learn-count {color: #C35617}
-                .review-count {color: #0a0}
-                table {}
-            </style>
-        """
+                <style>
+                    #overview {margin: 0 auto;display: table}
+                    .new-count {color: #4DC1F1}
+                    .learn-count {color: Orange}
+                    .review-count {color: #65f060}
+                    table {}
+                </style>
+            """
+    if type(context).__name__ == "OverviewBottomBar" and context.overview.mw.col.sched._is_finished():
         web_content.body = styles + table(Overview) + web_content.body
 
 # Add addon to Anki
