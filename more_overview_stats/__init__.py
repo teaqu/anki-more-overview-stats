@@ -105,28 +105,28 @@ def table(self):
 
 # inject overview into congrats webview
 def webview_will_set_content(web_content, context):
-    styles = """
-        <style>
-            #overview {margin: 0 auto;display: table}
-            .new-count {color: #00a}
-            .learn-count {color: #C35617}
-            .review-count {color: #0a0}
-            table {}
-        </style>
-    """
-    if theme.theme_manager.night_mode:
-        styles = """
+    if type(context).__name__ == "OverviewBottomBar" and context.overview.mw.col.sched._is_finished():
+        if theme.theme_manager.night_mode:
+            styles = """
                 <style>
                     #overview {margin: 0 auto;display: table}
-                    .new-count {color: #4DC1F1}
-                    .learn-count {color: Orange}
-                    .review-count {color: #65f060}
+                        .new-count {color: #4DC1F1}
+                        .learn-count {color: Orange}
+                        .review-count {color: #65f060}
+                        table {}
+                    </style>
+                """
+        else:
+            styles = """
+                <style>
+                    #overview {margin: 0 auto;display: table}
+                    .new-count {color: #00a}
+                    .learn-count {color: #C35617}
+                    .review-count {color: #0a0}
                     table {}
                 </style>
             """
-    if type(context).__name__ == "OverviewBottomBar" and context.overview.mw.col.sched._is_finished():
         web_content.body = styles + table(Overview) + web_content.body
-
 # Add addon to Anki
 Overview._table = table
 gui_hooks.webview_will_set_content.append(webview_will_set_content)
